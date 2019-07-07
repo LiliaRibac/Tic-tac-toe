@@ -14,14 +14,13 @@ constructor(props){
 
 handleClick(index){
   let newBoard = this.state.board
+  if(this.state.board[index] ===null){ 
   newBoard[index] = this.state.player
- let  newPlayer =this.state.player === 'X' ? '0' : 'X'
- this.setState ({
-board:newBoard,
-player:newPlayer
+  this.setState ({
+  board:newBoard,
+  player:this.state.player === 'X' ? '0' : 'X'
  })
-  //console.log(this.state.board)
-  //console.log(index)
+}
 }
 
 render (){
