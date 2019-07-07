@@ -8,7 +8,8 @@ constructor(props){
   super(props)
   this.state ={
     board:Array(9).fill(null),
-    player : 'X'
+    player : 'X',
+    winner:null
   }
 }
 
@@ -30,6 +31,10 @@ checkWinner(){
     const[a,b,c] =winLines[index];
     if(this.state.board[a] && this.state.board[a] === this.state.board[b] && this.state.board[a] === this.state.board[c]){
      alert('You won');
+      this.setState({
+        winner:this.state.player
+      })
+
     }
   }
 }
@@ -37,7 +42,7 @@ checkWinner(){
 
 handleClick(index){
   let newBoard = this.state.board
-  if(this.state.board[index] ===null){ 
+  if(this.state.board[index] ===null  && !this.state.winner){ 
   newBoard[index] = this.state.player
   this.setState ({
   board:newBoard,
