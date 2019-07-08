@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
+import Player from './components/choosePlayer';
 //import logo from './logo.svg';
 //import './App.css';
 
@@ -8,7 +9,7 @@ constructor(props){
   super(props)
   this.state ={
     board:Array(9).fill(null),
-    player : 'X',
+    player : null,
     winner:null
   }
 }
@@ -41,8 +42,9 @@ checkWinner(){
 
 
 handleClick(index){
+  if(this.state.player && !this.state.winner){
   let newBoard = this.state.board
-  if(this.state.board[index] ===null  && !this.state.winner){ 
+  if(this.state.board[index] ===null){ 
   newBoard[index] = this.state.player
   this.setState ({
   board:newBoard,
@@ -52,15 +54,28 @@ handleClick(index){
  this.checkWinner();
 }
 }
+}
+setPlayer(player){
+this.setState({
+  player
+})
+}
 
+renderBoxes(){
+  return this.state.board.map((box,index) => <div className ="box"key={index} onClick={()=> this.handleClick(index)}>{box}</div>)
+}
 render (){
-  const Box = this.state.board.map((box,index) => <div className ="box"key={index} onClick={()=> this.handleClick(index)}>{box}</div>)
+ 
+
+ let status= this.state.player ? <h2>Next player is {this.state.player} </h2> : <Player player={ (e) => this.setPlayer (e)} />
   return (  
 
     <div className="container">
       <h1>Tic tac-toe app</h1>
+  
+{status}
       <div className="board">
-      {Box}
+      {this.renderBoxes()}
     </div>
     
     </div>
