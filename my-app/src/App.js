@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 
 import Status from './components/status';
-//import logo from './logo.svg';
-//import './App.css';
+
 
 class App extends Component {
 constructor(props){
@@ -54,7 +53,7 @@ handleClick(index){
   newBoard[index] = this.state.player
   this.setState ({
   board:newBoard,
-  player:this.state.player === 'X' ? '0' : 'X'
+  player:this.state.player === 'X' ? 'O' : 'X'
  })
 
  this.checkWinner();
@@ -80,6 +79,8 @@ reset(){
 }
 render (){
  
+  
+ 
 
  
   return (  
@@ -89,13 +90,18 @@ render (){
   
 <Status player ={this.state.player} setPlayer={(e)=>{this.setPlayer(e)}} 
 winner ={this.state.winner} />
+<form >
+    <button className ="btnReset" disabled ={!this.state.winner} onClick={() => this.reset()}>Reset</button>
+    </form> 
       <div className="board">
       {this.renderBoxes()}
+    </div >
+    
     </div>
-    <button disabled ={!this.state.winner} onClick={() => this.reset()}>Reset</button>
-    </div>
+    
   );
   } 
+
 }
 
 export default App;
