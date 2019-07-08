@@ -41,7 +41,6 @@ checkMatch (winLines){
       this.setState({
         winner:this.state.player
       })
-
     }
   }
 }
@@ -56,18 +55,22 @@ handleClick(index){
   player:this.state.player === 'X' ? 'O' : 'X'
  })
 
- this.checkWinner();
+ this.checkWinner();  
+    }
+  }
 }
-}
-}
+
 setPlayer(player){
 this.setState({
   player
-})
+
+  })
 }
 
 renderBoxes(){
-  return this.state.board.map((box,index) => <div className ="box"key={index} onClick={()=> this.handleClick(index)}>{box}</div>)
+  return this.state.board.map((box,index) =>
+   <div className ="box"key={index} onClick={()=> this.handleClick(index)}>{box}
+   </div>)
 }
 
 reset(){
@@ -75,15 +78,11 @@ reset(){
   player:null,
   winner:null,
   board:Array(9).fill(null)
-});
+  });
 }
-render (){
- 
-  
- 
 
- 
-  return (  
+render (){
+   return (  
 
     <div className="container">
       <h1>Tic tac-toe app</h1>
@@ -92,12 +91,12 @@ render (){
 winner ={this.state.winner} />
 <form >
     <button className ="btnReset" disabled ={!this.state.winner} onClick={() => this.reset()}>Reset</button>
-    </form> 
-      <div className="board">
+</form> 
+    <div className="board">
       {this.renderBoxes()}
     </div >
     
-    </div>
+  </div>
     
   );
   } 

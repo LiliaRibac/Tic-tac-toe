@@ -22,8 +22,7 @@ class Player extends Component {
     
     <input type="submit" value="Start" />   
      </form>
-     )
-                
+     )                
     }
 }
  
