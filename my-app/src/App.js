@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
-import Player from './components/choosePlayer';
+
+import Status from './components/status';
 //import logo from './logo.svg';
 //import './App.css';
 
@@ -28,9 +29,15 @@ checkWinner(){
 ['2', '4', '6'],
   ]
 
+  this.checkMatch (winLines);
+}
+
+checkMatch (winLines){
+  
   for(let index =0; index<winLines.length; index++){
     const[a,b,c] =winLines[index];
-    if(this.state.board[a] && this.state.board[a] === this.state.board[b] && this.state.board[a] === this.state.board[c]){
+    let board = this.state.board;
+    if(board[a] && board[a] === board[b] && board[a] === board[c]){
      alert('You won');
       this.setState({
         winner:this.state.player
@@ -39,7 +46,6 @@ checkWinner(){
     }
   }
 }
-
 
 handleClick(index){
   if(this.state.player && !this.state.winner){
@@ -64,20 +70,29 @@ this.setState({
 renderBoxes(){
   return this.state.board.map((box,index) => <div className ="box"key={index} onClick={()=> this.handleClick(index)}>{box}</div>)
 }
+
+reset(){
+  this.setState({ 
+  player:null,
+  winner:null,
+  board:Array(9).fill(null)
+});
+}
 render (){
  
 
- let status= this.state.player ? <h2>Next player is {this.state.player} </h2> : <Player player={ (e) => this.setPlayer (e)} />
+ 
   return (  
 
     <div className="container">
       <h1>Tic tac-toe app</h1>
   
-{status}
+<Status player ={this.state.player} setPlayer={(e)=>{this.setPlayer(e)}} 
+winner ={this.state.winner} />
       <div className="board">
       {this.renderBoxes()}
     </div>
-    
+    <button disabled ={!this.state.winner} onClick={() => this.reset()}>Reset</button>
     </div>
   );
   } 
